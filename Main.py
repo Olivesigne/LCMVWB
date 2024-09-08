@@ -1,13 +1,15 @@
 import os
 import time
+
 import discord
 from discord.ext import commands
+from discord.ext.commands import command
 
-intents = discord.Intents.default()
-intents.members = True
-intents.message_content = True
 token = "MTI3NjE0MzYwNjUzNjg2Mzc4Ng.Gnz4wy.YA49Q92yWNOJcxcYESFvGNka119-BapovPmYFU"
-bot = commands.Bot(command_prefix="!", intents=intents)
+bot = commands.Bot(command_prefix="!", intents=discord.Intents.all())
+
+class memberFlag(commands.FlagConverter):
+    member: discord.Member
 
 @bot.command()
 async def bonjour(ctx):
@@ -19,27 +21,23 @@ async def list(ctx):
 
 @bot.command()
 async def info(ctx):
-    await ctx.send("@everyone Tout le monde :point_up: !")
+    await ctx.send("@everyone, \n")
 
 @bot.command()
-async def graphistes(ctx):
-    await ctx.send("<@&1276277931714412557> :point_up: !")
+async def graphistes(ctx, arg):
+    await ctx.send("<@&1276277931714412557>, \n"+ arg)
 
 @bot.command()
-async def devs(ctx):
-    await ctx.send("<@&1276277118250254378> :point_up: !")
+async def devs(ctx, arg):
+    await ctx.send("<@&1276277118250254378>, \n"+ arg)
 
 @bot.command()
-async def goat(ctx):
-    await ctx.send("<@&1276276439892889651> :point_up: !")
+async def goat(ctx, arg):
+    await ctx.send("<@&1276276439892889651>, \n"+ arg)
 
 @bot.command()
 async def idee(ctx):
     await ctx.send("@everyone ✔ ou ❌ :point_up: ! Réagissez !")
-
-@bot.command()
-async def invite(ctx):
-    await ctx.send("@everyone :point_up: ! Peut-on l'inviter ?")
 
 @bot.command()
 async def compterendu(ctx):
@@ -52,7 +50,13 @@ async def reseaux(ctx):
 
 @bot.command()
 async def ok(ctx):
-    await ctx.send("Le bot est en marche !")
+    await ctx.send(f"Je suis là, merci de demander {ctx.author} ! 😁")
+
+@bot.command()
+async def mp(ctx, arg, flags: memberFlag):
+    member = await bot.get_user_info("User's ID here")
+    await ctx.send(f"Un mp à bien été envoyé à {flags.member} de ma part pour {ctx.author}")
+    await bot.send_message(member, f"Message de la part de {ctx.author} : \n"+ arg)
 
 #L'erreur est sur les 6 prochaines lignes
 @bot.event
