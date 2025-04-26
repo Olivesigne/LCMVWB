@@ -5,7 +5,7 @@ import discord
 from discord.ext import commands
 from discord.ext.commands import command
 
-token = "MTI3NjE0MzYwNjUzNjg2Mzc4Ng.Gnz4wy.YA49Q92yWNOJcxcYESFvGNka119-BapovPmYFU"
+token = ""
 bot = commands.Bot(command_prefix="!", intents=discord.Intents.all())
 
 class memberFlag(commands.FlagConverter):
